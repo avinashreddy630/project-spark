@@ -15,7 +15,7 @@ export function BottomNavigation() {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card safe-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur-lg safe-bottom">
       <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -24,14 +24,17 @@ export function BottomNavigation() {
               key={item.path}
               onClick={() => navigate(item.path)}
               className={cn(
-                "flex min-w-[48px] flex-col items-center justify-center gap-0.5 rounded-xl px-3 py-1.5 transition-colors",
+                "relative flex min-w-[48px] flex-col items-center justify-center gap-0.5 rounded-xl px-3 py-1.5 transition-all",
                 isActive
                   ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground active:scale-90"
               )}
             >
-              <item.icon className={cn("h-5 w-5", isActive && "stroke-[2.5]")} />
-              <span className={cn("text-[10px] font-medium", isActive && "font-semibold")}>
+              {isActive && (
+                <div className="absolute -top-1 h-1 w-5 rounded-full bg-primary" />
+              )}
+              <item.icon className={cn("h-5 w-5 transition-all", isActive && "stroke-[2.5]")} />
+              <span className={cn("text-[10px] font-medium transition-all", isActive && "font-bold")}>
                 {item.label}
               </span>
             </button>

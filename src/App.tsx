@@ -8,6 +8,8 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import NotFound from "./pages/NotFound";
 
+const Splash = lazy(() => import("./pages/Splash"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
 const Quiz = lazy(() => import("./pages/Quiz"));
@@ -32,6 +34,11 @@ const App = () => (
       <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
           <Routes>
+            {/* Standalone screens (no nav) */}
+            <Route path="/splash" element={<Splash />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+
+            {/* Main app with layout */}
             <Route element={<AppLayout />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/chat" element={<Chat />} />
@@ -39,6 +46,7 @@ const App = () => (
               <Route path="/progress" element={<StudyProgress />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
