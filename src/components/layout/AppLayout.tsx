@@ -2,8 +2,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import { BottomNavigation } from "./BottomNavigation";
 import { FloatingActionButton } from "./FloatingActionButton";
 
-const hideNavRoutes = ["/onboarding", "/login", "/signup"];
-const hideFabRoutes = ["/chat", "/onboarding", "/login", "/signup"];
+const hideNavRoutes = ["/onboarding", "/login", "/signup", "/splash"];
+const hideFabRoutes = ["/chat", "/onboarding", "/login", "/signup", "/splash"];
 
 export function AppLayout() {
   const location = useLocation();
