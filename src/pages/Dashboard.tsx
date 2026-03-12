@@ -34,7 +34,7 @@ const quickActions = [
     label: "Summarize",
     icon: FileText,
     desc: "Condense your notes",
-    path: "/chat",
+    path: "/summarizer",
     color: "bg-warning/10 text-warning",
   },
   {

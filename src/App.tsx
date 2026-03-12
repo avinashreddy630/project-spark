@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { AuthProvider } from "@/contexts/AuthContext";
 import NotFound from "./pages/NotFound";
 
 const Splash = lazy(() => import("./pages/Splash"));
@@ -15,6 +16,11 @@ const Chat = lazy(() => import("./pages/Chat"));
 const Quiz = lazy(() => import("./pages/Quiz"));
 const StudyProgress = lazy(() => import("./pages/StudyProgress"));
 const Profile = lazy(() => import("./pages/Profile"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const Summarizer = lazy(() => import("./pages/Summarizer"));
 
 const queryClient = new QueryClient();
 
@@ -29,28 +35,35 @@ function PageLoader() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            {/* Standalone screens (no nav) */}
-            <Route path="/splash" element={<Splash />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              {/* Standalone screens */}
+              <Route path="/splash" element={<Splash />} />
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* Main app with layout */}
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/progress" element={<StudyProgress />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route>
+              {/* Main app with layout */}
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/progress" element={<StudyProgress />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/summarizer" element={<Summarizer />} />
+              </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

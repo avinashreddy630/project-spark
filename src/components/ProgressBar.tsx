@@ -5,13 +5,14 @@ interface ProgressBarProps {
   max?: number;
   className?: string;
   showLabel?: boolean;
-  variant?: "default" | "success" | "warning";
+  variant?: "default" | "success" | "warning" | "destructive";
 }
 
 const variantStyles = {
   default: "bg-primary",
   success: "bg-success",
   warning: "bg-warning",
+  destructive: "bg-destructive",
 };
 
 export function ProgressBar({
